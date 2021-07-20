@@ -24,7 +24,7 @@
     color: #000000;
     border: none;
     border-bottom: 0.5px solid #999999;
-    margin-bottom: 20px;
+    margin-top: 20px;
   }
   .input::placeholder{
     color: var(--colorText);
@@ -49,6 +49,7 @@
     font-size: var(--sizeTextMobile);
     line-height: 40px;
     color: var(--colorText);
+    margin-top: 20px;
   }
   .select{
     color: var(--colorText);

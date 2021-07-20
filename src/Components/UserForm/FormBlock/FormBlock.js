@@ -2,25 +2,27 @@ import style from './FormBlock.module.css'
 
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 import * as yup from 'yup';
+// import validationsSchema from '../../Validation/ValidationsSchema' 
 
 // import AddFile from './Comp/addFiles/AddFile';
 // import Consent from './Comp/consent/Consent';
 
 
 function FormBlock(){
-    let validationSchema = yup
-    .object()
-    .shape({
+    const validationsSchema = yup.object().shape({
       name: yup.string()
         .min(2, 'Username must be atleast 2 charactrs long, Please Try Again')
         .max(20, 'Too Long, Please Try Again')
-        .required('Cant be blank'),
-      email: yup.string()
-        .email('Invalid email, Please Try Again')
         .required('Cant be blank')
+        .matches('^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$', 'Use only Latin characters, Please Try Again'),
+      email: yup.string()
+        .required('Cant be blank') 
+        .matches('/^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i', 'Invalid email, Please Try Again'), //не работает регулярка
     })
+    
 
     return(
+        <div>
            <Formik
             initialValues={{ 
                 name: '', 
@@ -33,9 +35,10 @@ function FormBlock(){
                 checkbox: 'false' 
             }}
             validateOnBlur
-            // validate={FormValidateEmail}
-            onSubmit={(values) => {console.log(values)} } >
-            {/* validationSchema={validationSchema} */}
+            onSubmit={(values) => {console.log(values)}} 
+            validationSchema={validationsSchema}
+            >
+            
             {({ values, errors, touched, handleChange, handleBlur, isValid, handleSubmit, dirty }) => (
                 <Form>
                 <Field type="text" 
@@ -46,7 +49,7 @@ function FormBlock(){
                         value={values.name}  
                         placeholder="Full Name" />
 
-                    <ErrorMessage name="name" component="span" className={style.errorMessage} />
+                    {/* <ErrorMessage name="name" component="span" className={style.errorMessage} /> */}
                     {touched.name && errors.name && <p className={style.errorMessage}>{errors.name} </p> }
                     {/* <Field name="name" /> {errors.name && touched.name ? ( <div>{errors.name}</div>) : null} */}
 
@@ -59,7 +62,8 @@ function FormBlock(){
                         onBlur={handleBlur}
                         value={values.email}  
                         placeholder="Email"/>
-                    <ErrorMessage name="email" component="span" className={style.errorMessage} />
+                    {/* <ErrorMessage name="email" component="span" className={style.errorMessage} /> */}
+                    {touched.email && errors.email && <p className={style.errorMessage}>{errors.email} </p> }
 
                     <Field name="specialty" as="select" className={`${style.input} ${style.select}`}> 
                         <option defaultValue>Specialty</option>
@@ -144,21 +148,14 @@ function FormBlock(){
                                 onClick={handleSubmit}
                                 type={'submit'}
                                 className={style.submitBtn}
-                                className={style.submitBtn}
                                 > Submit
                             </button>
                         </div>
                     </div>
                 </Form>
-                
-               
-
-                   
-
-                   
-                
-            ) }
-                </Formik>
+                ) }
+            </Formik>
+        </div>
     )
 }
 
