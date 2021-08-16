@@ -34,12 +34,13 @@
     outline: none; 
   } 
   .inputBlock{
-    height: 50px;
+    height: 30px;
   }
  
   .errorMessage{
     font-family: var(--Roboto);
     font-size: 10px;
+    padding: 2px 0;
     color: red;
   }
   .inputTitle{
@@ -62,6 +63,12 @@
     resize: none;
     outline: none;
     margin-top: 5px;
+  }
+  .textareaBlock{
+    height: 140px;
+  }
+  .fileLinkBlock{
+    height: 130px;
   }
   .linkBlock{
     margin-top: 30px;
@@ -171,14 +178,13 @@
     cursor: pointer;
   }
 
-  
-
-
+ 
 .block{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     height: 50px;
+    margin-top: 30px;
   }
 .title{
     height: 50px;
